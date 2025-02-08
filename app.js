@@ -11,6 +11,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var taskRouter = require('./routes/task');
+var usertaskRouter = require('./routes/usertask');
 
 // Create Express App
 var app = express();
@@ -25,9 +27,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Define Route
+// gretting api
 app.use('/', indexRouter);
+
+// user api
 app.use('/users', usersRouter);
+
+app.use('/task', taskRouter);
+
+// usertask api
+app.use('/user-task', usertaskRouter);
 
 // Handle Error
 app.use(function (req, res, next) {
@@ -47,9 +56,6 @@ app.use(function (err, req, res) {
 
 // Set port
 const port = process.env.APP_PORT || 4000;
-
-const portCon = process.env.APP_PORT;
-console.log(portCon);
 
 // Start server
 app.listen(port, () => {
